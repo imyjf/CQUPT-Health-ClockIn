@@ -47,6 +47,7 @@ function checkRepeatClock() {
         } else {
           console.log("1、检测重复打卡-今日已打卡");
           console.log("2、打卡成功");
+          sendNotification("今日已打卡");
           return;
         }
       } else {
@@ -80,14 +81,14 @@ function getStudentInfo() {
       } else {
         console.log("2、获取学生信息失败");
         console.log("3、打卡失败");
-        sendNotification("自动健康打卡失败，请手动打卡");
+        sendNotification("获取学生信息失败1，自动健康打卡失败，请手动打卡");
         return;
       }
     })
     .catch(err => {
       console.log("2、获取学生信息失败");
       console.log("3、打卡失败");
-      sendNotification("自动健康打卡失败，请手动打卡");
+      sendNotification("获取学生信息失败2，自动健康打卡失败，请手动打卡");
       return;
     });
 }
@@ -124,14 +125,14 @@ function getLocation() {
       } else {
         console.log("3、获取地址失败");
         console.log("4、打卡失败");
-        sendNotification("自动健康打卡失败，请手动打卡");
+        sendNotification("获取地址失败1，自动健康打卡失败，请手动打卡");
         return;
       }
     })
     .catch(() => {
       console.log("3、获取地址失败");
       console.log("4、打卡失败");
-      sendNotification("自动健康打卡失败，请手动打卡");
+      sendNotification("获取地址失败2，自动健康打卡失败，请手动打卡");
       return;
     });
 }
@@ -198,12 +199,12 @@ function clockIn() {
         sendNotification("自动健康打卡成功");
       } else {
         console.log("4、打卡失败");
-        sendNotification("自动健康打卡失败，请手动打卡");
+        sendNotification("服务端响应错误1，自动健康打卡失败，请手动打卡");
       }
     })
     .catch(err => {
       console.log("4、打卡失败");
-      sendNotification("自动健康打卡失败，请手动打卡");
+      sendNotification("服务端响应错误2，自动健康打卡失败，请手动打卡");
     });
 }
 
