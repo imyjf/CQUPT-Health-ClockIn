@@ -9,10 +9,13 @@ const { getMrdkKey } = require("./mrdkkey.js");
 const push_key = process.env.PUSH_KEY;
 
 // 私密信息，通过 Github secrets 填入
-const secret_keys = {
+const 
+= {
   openid: process.env.OPEN_ID,
   student_num: process.env.STUDENT_NUM,
-  address: process.env.ADDRESS
+  address: process.env.ADDRESS,
+  name: process.env.STUDENT_NAME,
+  sex:  process.env.GENDER
 };
 
 // 获取当前时间戳
@@ -43,7 +46,7 @@ function checkRepeatClock() {
         let count = res.data.data.count;
         if (count == "0") {
           console.log("1、检测重复打卡-今日首次打卡");
-          getStudentInfo();
+          getStudentInfo1();
         } else {
           console.log("1、检测重复打卡-今日已打卡");
           console.log("2、打卡成功");
@@ -91,6 +94,13 @@ function getStudentInfo() {
       sendNotification("获取学生信息失败2，自动健康打卡失败，请手动打卡");
       return;
     });
+}
+// 获取学生信息20210124
+function getStudentInfo1() {
+//   secret_keys.name = data.name;
+//   secret_keys.sex = data.gender;
+  console.log("2、获取学生信息成功");
+  getLocation();
 }
 
 // 获取位置信息
@@ -181,7 +191,7 @@ function clockIn() {
   const key_base64 = new Buffer.from(JSON.stringify(key)).toString("base64");
 
   const options = {
-    url: "https://we.cqu.pt/api/mrdk/post_mrdk_info.php",
+    url: "https://we.cqu.pt/api/yjs_mrdk/post_yjs_mrdk_info.php",
     method: "POST",
     headers: {
       "User-Agent": "Mozilla/5.0 (Linux; Android 10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.62 XWEB/2693 MMWEBSDK/201001 Mobile Safari/537.36 MMWEBID/7311 MicroMessenger/7.0.20.1781(0x27001439) Process/appbrand2 WeChat/arm64 NetType/4G Language/zh_CN ABI/arm64",
