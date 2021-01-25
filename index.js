@@ -12,7 +12,7 @@ const push_key = process.env.PUSH_KEY;
 const secret_keys = {
   openid: process.env.OPEN_ID,
   student_num: process.env.STUDENT_NUM,
-  address: process.env.ADDRESS，
+  address: process.env.ADDRESS,
   student_name: process.env.STUDENT_NAME,
   sex： process.env.GENDER
 };
