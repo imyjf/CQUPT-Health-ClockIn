@@ -48,9 +48,7 @@ function checkRepeatClock() {
           // getStudentInfo();
 		  // 跳过获取学生信息
 		  console.log("2、获取学生信息成功");
-		  getLocation();
-}
-		  
+		  getLocation();		  
         } else {
           console.log("1、检测重复打卡-今日已打卡");
           console.log("2、打卡成功");
