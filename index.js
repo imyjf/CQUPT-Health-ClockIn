@@ -14,7 +14,7 @@ const secret_keys = {
   student_num: process.env.STUDENT_NUM,
   address: process.env.ADDRESS,
   student_name: process.env.STUDENT_NAME,
-  sex： process.env.GENDER
+  sex: process.env.GENDER
 };
 
 // 获取当前时间戳
