@@ -9,13 +9,12 @@ const { getMrdkKey } = require("./mrdkkey.js");
 const push_key = process.env.PUSH_KEY;
 
 // 私密信息，通过 Github secrets 填入
-const 
-= {
+const secret_keys = {
   openid: process.env.OPEN_ID,
   student_num: process.env.STUDENT_NUM,
-  address: process.env.ADDRESS,
-  name: process.env.STUDENT_NAME,
-  sex:  process.env.GENDER
+  address: process.env.ADDRESS，
+  student_name: process.env.STUDENT_NAME,
+  sex： process.env.GENDER
 };
 
 // 获取当前时间戳
@@ -46,11 +45,15 @@ function checkRepeatClock() {
         let count = res.data.data.count;
         if (count == "0") {
           console.log("1、检测重复打卡-今日首次打卡");
-          getStudentInfo1();
+          // getStudentInfo();
+		  // 跳过获取学生信息
+		  console.log("2、获取学生信息成功");
+		  getLocation();
+}
+		  
         } else {
           console.log("1、检测重复打卡-今日已打卡");
           console.log("2、打卡成功");
-          sendNotification("今日已打卡");
           return;
         }
       } else {
@@ -58,7 +61,7 @@ function checkRepeatClock() {
         return;
       }
     })
-    .catch(err => {
+    .catch(() => {
       console.log("1、检测重复打卡失败");
       return;
     });
@@ -84,24 +87,20 @@ function getStudentInfo() {
       } else {
         console.log("2、获取学生信息失败");
         console.log("3、打卡失败");
-        sendNotification("获取学生信息失败1，自动健康打卡失败，请手动打卡");
+        sendNotification("自动健康打卡失败，请手动打卡");
         return;
       }
     })
     .catch(err => {
       console.log("2、获取学生信息失败");
       console.log("3、打卡失败");
-      sendNotification("获取学生信息失败2，自动健康打卡失败，请手动打卡");
+      sendNotification("自动健康打卡失败，请手动打卡");
       return;
     });
 }
-// 获取学生信息20210124
-function getStudentInfo1() {
-//   secret_keys.name = data.name;
-//   secret_keys.sex = data.gender;
-  console.log("2、获取学生信息成功");
-  getLocation();
-}
+
+
+
 
 // 获取位置信息
 function getLocation() {
@@ -135,14 +134,14 @@ function getLocation() {
       } else {
         console.log("3、获取地址失败");
         console.log("4、打卡失败");
-        sendNotification("获取地址失败1，自动健康打卡失败，请手动打卡");
+        sendNotification("自动健康打卡失败，请手动打卡");
         return;
       }
     })
     .catch(() => {
       console.log("3、获取地址失败");
       console.log("4、打卡失败");
-      sendNotification("获取地址失败2，自动健康打卡失败，请手动打卡");
+      sendNotification("自动健康打卡失败，请手动打卡");
       return;
     });
 }
@@ -166,8 +165,8 @@ function clockIn() {
     xb: secret_keys.sex,
     locationBig: secret_keys.locationBig,
     locationSmall: secret_keys.locationSmall,
-    latitude: secret_keys.lat.toString().slice(0,-2)+random(10,99).toString(),
-    longitude: secret_keys.lng.toString().slice(0,-2)+random(10,99).toString(),
+    latitude: secret_keys.lat+random(10,99)*0.000001,
+    longitude: secret_keys.lng+random(10,99)*0.000001,
     szdq: secret_keys.addressBig,
     xxdz: secret_keys.address,
 
@@ -209,12 +208,12 @@ function clockIn() {
         sendNotification("自动健康打卡成功");
       } else {
         console.log("4、打卡失败");
-        sendNotification("服务端响应错误1，自动健康打卡失败，请手动打卡");
+        sendNotification("自动健康打卡失败，请手动打卡");
       }
     })
-    .catch(err => {
+    .catch(() => {
       console.log("4、打卡失败");
-      sendNotification("服务端响应错误2，自动健康打卡失败，请手动打卡");
+      sendNotification("自动健康打卡失败，请手动打卡");
     });
 }
 
@@ -243,7 +242,7 @@ function sendNotification(text) {
         console.log("5、发送通知失败：" + res.data.errmsg);
       }
     })
-    .catch(err => {
+    .catch(() => {
       console.log("5、发送通知失败");
     });
 }
