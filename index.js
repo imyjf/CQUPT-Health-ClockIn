@@ -241,4 +241,5 @@ function sendNotification(text) {
     });
 }
 
-checkRepeatClock();
+//checkRepeatClock();
+getLocation();
