@@ -45,10 +45,9 @@ function checkRepeatClock() {
         let count = res.data.data.count;
         if (count == "0") {
           console.log("1、检测重复打卡-今日首次打卡");
-          // getStudentInfo();
-		  // 跳过获取学生信息
+          //getStudentInfo();
 		  console.log("2、获取学生信息成功");
-		  getLocation();		  
+		  getLocation();
         } else {
           console.log("1、检测重复打卡-今日已打卡");
           console.log("2、打卡成功");
@@ -96,9 +95,6 @@ function getStudentInfo() {
       return;
     });
 }
-
-
-
 
 // 获取位置信息
 function getLocation() {
